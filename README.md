@@ -21,7 +21,7 @@
 
 ## 📅 Current Active Sprint: Sprint 1
 
-Focus: Documentation & Architecture!  
+**Focus:** Documentation & Architecture!  
 Check open issues labeled with **`sprint-1`** to find tasks currently being accepted for contributions.
 
 ## 🚀 Participate in Hacktoberfest 2025
