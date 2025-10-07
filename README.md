@@ -19,10 +19,10 @@
 
 </div>
 
-## 📅 Current Active Sprint: Sprint 0
+## 📅 Current Active Sprint: Sprint 1
 
 Focus: Documentation enhancements, minor UI improvements, and bug fixes.  
-Check open issues labeled with **`sprint-0`** to find tasks currently being accepted for contributions.
+Check open issues labeled with **`sprint-1`** to find tasks currently being accepted for contributions.
 
 ## 🚀 Participate in Hacktoberfest 2025
 
