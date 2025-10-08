@@ -1,56 +1,52 @@
 name: Ruff Format Check
-
 on:
-    pull_request:
-        branches:
-            - main
+  pull_request:
+    branches:
+      - main
 
 permissions:
-    contents: write
-    pull-requests: write
+  contents: write
+  pull-requests: write
 
 jobs:
-    ruff:
-        runs-on: ubuntu-latest
+  ruff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
-              with:
-                  fetch-depth: 0
-                  token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-            - name: Set up Python
-              uses: actions/setup-python@v5
-              with:
-                  python-version: "3.11"
+      - name: Install Ruff
+        run: pip install ruff
 
-            - name: Install Ruff
-              run: pip install ruff
+      - name: Run Ruff formatter
+        run: ruff format .
 
-            - name: Run Ruff formatter
-              id: ruff
-              run: |
-                  ruff format .
-                  if [ -n "$(git status --porcelain)" ]; then
-                    git config --global user.name "github-actions[bot]"
-                    git config --global user.email "github-actions[bot]@users.noreply.github.com"
-                    git add .
-                    git commit -m "chore: format Python files with Ruff"
-                    git push
-                  fi
+      - name: Check for modified files
+        id: git-check
+        run: echo "modified=$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)" >> $GITHUB_OUTPUT
 
-            - name: Count formatted files
-              id: count
-              run: |
-                  FILES_CHANGED=$(git diff --name-only HEAD^ HEAD | grep '\.py$' | wc -l || echo 0)
-                  echo "count=$FILES_CHANGED" >> $GITHUB_OUTPUT
+      - name: Commit and push changes
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m "chore: format Python files with Ruff"
+          git push
 
-            - name: Comment on PR
-              if: always()
-              uses: peter-evans/create-or-update-comment@v4
-              with:
-                  token: ${{ secrets.GITHUB_TOKEN }}
-                  issue-number: ${{ github.event.pull_request.number }}
-                  body: |
-                      ${{ steps.count.outputs.count == '0' && '✅ No Python files formatted.' || format('✨ {0} Python files formatted and committed back to the branch.', steps.count.outputs.count) }}
+      - name: Comment on PR
+        if: always()
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ${{ steps.git-check.outputs.modified == 'true' && '✨ Python files formatted and committed back to the branch.' || '✅ No Python files needed formatting.' }}
