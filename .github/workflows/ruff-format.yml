@@ -1,8 +1,14 @@
 name: Ruff Format Check
+
 on:
   pull_request:
     branches:
       - main
+
+# Cancel in-progress runs on the same PR and workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -39,7 +45,7 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add .
-          git commit -m "chore: format Python files with Ruff"
+          git commit -m "chore: format Python files with Ruff [skip ci]"
           git push
 
       - name: Comment on PR
