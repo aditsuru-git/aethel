@@ -7,8 +7,5 @@ def fun():
 
 
 def av():
-    print('something')
-    b = {
-        'ad':'wad', 'aw':'w',
-        'wada': 'wadwad'
-    }
+    print("something")
+    b = {"ad": "wad", "aw": "w", "wada": "wadwad"}
