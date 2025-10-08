@@ -1,0 +1,108 @@
+# .github/workflows/lint-format-scan.yml
+name: Lint, Format, and Scan
+
+on:
+  pull_request:
+    branches:
+      - main
+
+# Cancel in-progress runs on the same PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+  security-events: write
+  actions: read
+
+jobs:
+  checks:
+    name: Run Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # --- Formatting Section ---
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Ruff
+        run: pip install ruff
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run Ruff formatter
+        run: ruff format .
+
+      - name: Run Prettier formatter
+        run: npx prettier --write "**/*.{js,jsx,ts,tsx,json,md,yml,yaml}"
+
+      # --- Commit and Push Section ---
+      - name: Check for formatting changes
+        id: git-check
+        run: echo "modified=$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)" >> $GITHUB_OUTPUT
+
+      - name: Commit and push changes
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m "chore: auto-format files [skip ci]"
+          git push
+
+      - name: Comment on PR about formatting
+        if: always()
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ${{ steps.git-check.outputs.modified == 'true' && '✨ Code formatted and committed back to the branch.' || '✅ No files needed formatting.' }}
+
+      # --- Security Scan Section ---
+      # These steps run *after* formatting is complete and committed.
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: "javascript" # Add other languages like "python" if needed
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+      # Snyk Scan runs after all formatting is complete
+      - name: Install dependencies for Snyk
+        run: |
+          if [ -f "package-lock.json" ]; then
+            npm ci
+          elif [ -f "package.json" ]; then
+            npm install
+          fi
+          if [ -f "requirements.txt" ]; then
+            pip install -r requirements.txt
+          fi
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        continue-on-error: true # Allow workflow to continue to post a comment
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: test
+
+      - name: Fail if vulnerabilities found
+        if: failure()
+        run: |
+          echo "❌ Vulnerabilities detected by Snyk! Failing the workflow."
+          exit 1
