@@ -64,6 +64,22 @@ function MemberCard({ username, name }: Member) {
     );
   }
 
+<<<<<<< HEAD
+	return (
+		<a
+			href={`https://github.com/${username}`}
+			target="_blank"
+			rel="noopener noreferrer"
+			className="bg-gray-800 rounded-xl p-8 text-center hover:bg-gray-750 transition-all shadow-2xl hover:scale-105 hover:shadow-xl"
+		>
+			<img
+				src={stats?.avatar_url || `https://github.com/${username}.png`}
+				alt={username}
+				className="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-gray-700"
+			/>
+			<h2 className="text-2xl font-bold mb-1">{stats?.name || name}</h2>
+			<p className="text-gray-400 mb-4">@{username}</p>
+=======
   return (
     <a
       href={`https://github.com/${username}`}
@@ -78,6 +94,7 @@ function MemberCard({ username, name }: Member) {
       />
       <h2 className="text-2xl font-bold mb-1">{stats?.name || name}</h2>
       <p className="text-gray-400 mb-4">@{username}</p>
+>>>>>>> upstream/main
 
       {stats && (
         <div className="flex justify-center gap-6 text-sm">

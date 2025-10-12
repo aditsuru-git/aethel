@@ -1,5 +1,7 @@
 # Design guidelines
 
+![image](./assets/refrence-images/ui.png)
+
 ## Description of Layout
 
 - The main editor pane is 50%(0.5) of the total width
@@ -30,6 +32,11 @@ Accent Color is for links, active tabs and highlights
 Hightlight color is used when text is selected or an item is highlighted in a list.
 Border Color is used for separating panels, modal borders or subtle line accents.
 
+<<<<<<< HEAD:docs/frontend/design.md
+## Typography 
+- **font** - inter  
+=======
 ## Typography
 
 <!-- TODO: To be completed after deciding the font -->
+>>>>>>> upstream/main:docs/frontend/ui/mockup.md
