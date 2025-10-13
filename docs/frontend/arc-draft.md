@@ -1,12 +1,11 @@
+\*_the json structure is only for understanding. please see json file_
 
-**the json structure is only for understanding. please see json file*
-
-
-## file browser 
+## file browser
 
 - uses **Json** to reseve folder stucture data from the backend
-- renders based on children && properties 
-- each element will have a type 
+- renders based on children && properties
+- each element will have a type
+
 ```
 
 {
@@ -31,35 +30,36 @@
 }
 
 ```
+
 - currently supported files are various image formats eg jpg , png etc
-- all files will be converted to a specifi resolution range. 
+- all files will be converted to a specific resolution range.
 - all files will be converted to jpg with 80% quality (best file size to quality ratio)
-- file uplaod will happen directly through editor and files will be stored in same folder as the md file. 
-- user will only see the file in folderr structur and will not see other files (makes ui clean and user doesnot need to see them any way)
+- file uplaod will happen directly through editor and files will be stored in same folder as the md file.
+- user will only see the file in folderr structure and will not see other files (makes ui clean and user does not need to see them any way)
 
 ## Editor
 
-- the editor uses blocknote to setup a markdown editor 
-- pages will be loaded in the editor using react router and will be auto saved every 10 seconds. 
+- the editor uses blocknote to setup a markdown editor
+- pages will be loaded in the editor using react router and will be auto saved every 4 seconds.
 
-- every 10s all the markdown with newly added files etc will be sent to the backend 
+- every 4 second all the markdown with newly added files etc will be sent to the backend
 
-- from the data sent to backend there will be a copy stored locally for undo functionality
+- from the data sent to backend there will be a copy stored locally for undo functionality [This can introduce more complexity like versioning, better remove it]
 
 ---
 
-
 ## AI chat
 
-- chat data will be recieved using json and will be in markdown form.  
+- chat data will be recieved using json and will be in markdown form.
 
 - llm will be pre prompted to give results in markdown
 
 - There should be an option to perform "create" new chat, older chats will be stored in chat history dropdown like we have in ChatGPT interface
 
-- ai jason will have elements 
+- ai jason will have elements
 
-**recieved*
+\*_recieved_
+
 ```
 [
     {
@@ -72,7 +72,7 @@
 
 ```
 
-**sent*
+\*_sent_
 
 ```
 [
@@ -81,7 +81,7 @@
         description/chat : (markdown data)
 
         context : [
-            { 
+            {
                 file :(markdown file) **currently opened*,
                 previous-chats : (chat-history)
             }
@@ -93,13 +93,9 @@
 
 ```
 
-
-
 ---
 
-
 ## Settings
-
 
 ### Acount
 
@@ -113,23 +109,19 @@
 
 #### tabs
 
-- most of the tabs like settings etc can be displayed in the editor itself 
+- most of the tabs like settings etc can be displayed in the editor itself
 
-- the login tab can be a popup window on top of the editor 
+- the login tab can be a popup window on top of the editor
 
-- **React-router** will be used to render pages or tabs to editor on click. 
-
+- **React-router** will be used to render pages or tabs to editor on click.
 
 ## for future (not in mvp)
 
 - light mode
 - mobile version
 - video/gif support
-- customizable ui 
-
-
+- customizable ui
 
 ### mobile version
 
 - on small screens we show message like mobile version not supported.
-

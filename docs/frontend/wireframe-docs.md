@@ -2,8 +2,6 @@
 
 \*This documentation is not for the UI/UX design, it is for the wireframe/layout to get us an idea of what we are building
 
-
-
 ## Dependencies
 
 - React
@@ -32,7 +30,7 @@ The application follows a three-panel layout:
   - we can store files as md files or contents of the files in a sql db
   - images will be stored saperately and called with a url(in same folder as md files)
   - click on a file to open in editor
-  - Saving changes will be in real time via websockets, frontend should listen to an `event` and update the UI with "changes saved" - 
+  - Saving changes will be in real time via websockets, frontend should listen to an `event` and update the UI with "changes saved" -
 - **Bottom Bar**
   - Settings button (gear icon)
   - "Other Tabs" indicator/switcher
@@ -69,7 +67,7 @@ The application follows a three-panel layout:
 - **Chat History**
   - gives answeres in markdown but user sees rendered output in chat
   - entire editor file will be sent with user chat and previous chats for context(untill rag is implimented)
-  - A complete Database will be implemented for saving the chat history, each chat history will be a session. There should be an option to perform "create" new chat, older chats will be stored in chat history dropdown like we have in ChatGPT interface 
+  - A complete Database will be implemented for saving the chat history, each chat history will be a session. There should be an option to perform "create" new chat, older chats will be stored in chat history dropdown like we have in ChatGPT interface
 - **Input Area** (Bottom)
   - messege ai and tap send button or hit enter to send. send button needs to convert to loading state while waiting for ai response
 

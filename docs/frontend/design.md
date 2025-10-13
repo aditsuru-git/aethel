@@ -32,11 +32,12 @@ Accent Color is for links, active tabs and highlights
 Hightlight color is used when text is selected or an item is highlighted in a list.
 Border Color is used for separating panels, modal borders or subtle line accents.
 
-<<<<<<< HEAD:docs/frontend/design.md
-## Typography 
-- **font** - inter  
-=======
+## Typography
+
+- # **font** - inter
+
 ## Typography
 
 <!-- TODO: To be completed after deciding the font -->
->>>>>>> upstream/main:docs/frontend/ui/mockup.md
+
+> upstream/main:docs/frontend/ui/mockup.md
