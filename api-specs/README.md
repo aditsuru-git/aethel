@@ -7,7 +7,6 @@ The official OpenAPI 3.0 contract for the Aethel API. This document is the singl
 - [Aethel API Contract](#aethel-api-contract)
   - [Table of Contents](#table-of-contents)
   - [Getting Started: Viewing the Contract](#getting-started-viewing-the-contract)
-  - [Project TODOs](#project-todos)
   - [Development Workflow](#development-workflow)
   - [How to Contribute](#how-to-contribute)
 
@@ -20,7 +19,7 @@ This project uses Docker to run a local Swagger UI, providing an interactive way
 1.  **Navigate to the directory:**
 
     ```sh
-    cd aethal
+    cd aethel
     ```
 
 2.  **Run with Docker Compose:**
@@ -33,12 +32,6 @@ This project uses Docker to run a local Swagger UI, providing an interactive way
 3.  **View the API Contract:**
     You can now access the interactive Swagger UI in your browser at:
     **[http://localhost:8080](http://localhost:8080)**
-    
-## Project TODOs
-
-- [ ] **Review Endpoints:** Re-check every endpoint, its parameters, and expected responses.
-- [ ] **Review Schemas:** Validate all schemas against the ER diagram and update either as needed.
-- [ ] **Final Confirmation:** Receive final approval on the contract from both the frontend and backend teams.
 
 ## Development Workflow
 

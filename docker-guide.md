@@ -1,9 +1,8 @@
-# 🧩 Docker Compose Cheat Sheet 
+# 🧩 Docker Compose Cheat Sheet
 
 ## 🚀 Local Development Workflow
 
 This workflow is the **only supported way** to run the local stack (PostgreSQL + Swagger UI + Swagger Editor).
-
 
 ### 1️⃣ Configure the Environment
 
@@ -31,12 +30,11 @@ docker compose up -d
 
 This will start:
 
-* **PostgreSQL** (port `5432`)
-* **Swagger UI** (port `8080`)
-* **Swagger Editor** (port `8081`)
+- **PostgreSQL** (port `5432`)
+- **Swagger UI** (port `8080`)
+- **Swagger Editor** (port `8081`)
 
 Swagger will automatically read from your local `openapi.yaml`.
-
 
 ### 3️⃣ Run Your Backend Locally
 
@@ -118,19 +116,16 @@ POSTGRES_DB=aethel_db
 
 **Rules:**
 
-* Never commit `.env.docker` to Git.
-* Always version-control `.env.docker.example` as a reference template.
-
-
+- Never commit `.env.docker` to Git.
+- Always version-control `.env.docker.example` as a reference template.
 
 ## 📝 Notes
 
-* `.env.docker` contains **sensitive credentials** — never commit it.
-* The `postgres-data/` directory (or volume `pg_data`) is persistent — don’t delete unless you want a clean slate.
-* Swagger UI reads from `./openapi.yaml`. Any changes to that file are reflected automatically when refreshed.
-* If Swagger doesn’t reload, restart it with:
+- `.env.docker` contains **sensitive credentials** — never commit it.
+- Postgres data is persisted in the Docker volume (`pg_data`) — don’t delete unless you want a clean slate.
+- Swagger UI reads from `./openapi.yaml`. Any changes to that file are reflected automatically when refreshed.
+- If Swagger doesn’t reload, restart it with:
 
   ```bash
   docker compose restart swagger-ui
   ```
-

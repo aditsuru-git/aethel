@@ -1,4 +1,4 @@
-# PostgreSQL Docker Compose Cheat Sheet
+# Backend Development Env Setup
 
 ## Required Daily Workflow
 
@@ -13,6 +13,8 @@ This is the only workflow supported for local development.
 
     Fill this file with the `POSTGRES_USER`, `POSTGRES_PASSWORD`, etc.
 
+    > Refer to [the main Docker Compose Cheat Sheet](URL_TO_DOC1) for full PostgreSQL setup with Docker.
+
 2.  **Start the Database Container:**
     From the project's root directory (`backend/`), run:
 
@@ -24,12 +26,14 @@ This is the only workflow supported for local development.
 
 3.  **Run the Backend Locally:**
     Navigate to the backend service folder, create your local `.env` file, and start the server.
+
     ```sh
     cd backend/aethel-backend
     cp .env.example .env # And fill it with your app secrets (JWT, etc.)
     npm install
     npm run dev
     ```
+
     The local server will connect to the database running in Docker.
 
 ## Environment Variable Management
@@ -83,6 +87,7 @@ This is the only workflow supported for local development.
   ```
 
 - **Manage volumes:**
+
   ```bash
   docker volume ls
   docker volume inspect pg_data
@@ -91,5 +96,5 @@ This is the only workflow supported for local development.
 ## Notes
 
 - `.env.docker` contains sensitive credentials. **Do not commit it to Git.**
-- `postgres-data/` is persisted in a Docker volume (`pg_data`) and should **not** be committed.
+- Postgres data is persisted in the Docker volume (`pg_data`) and should **not** be committed.
 - Use `.env.docker` for Compose environment variables; you can safely version `.env.docker.example` as a template.
